@@ -48,6 +48,29 @@ app.use((err, req, res, next) => {
   });
 });
 
+const { Sequelize } = require('sequelize');
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'fsjstd-restapi.db'
+});
+
+// Test the connection
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to the database was successful!');
+
+    // Sync models
+    await sequelize.sync();
+    console.log('Database synced successfully!');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
+
+module.exports = sequelize;
+
+
 // set our port
 app.set('port', process.env.PORT || 5000);
 

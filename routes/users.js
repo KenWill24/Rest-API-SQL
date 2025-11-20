@@ -33,13 +33,6 @@ router.post('/users', async (req, res, next) => {
   try {
     const { firstName, lastName, emailAddress, password } = req.body;
 
-    // Validate required fields
-    if (!firstName || !lastName || !emailAddress || !password) {
-      return res.status(400).json({
-        message: 'All fields (firstName, lastName, emailAddress, password) are required.'
-      });
-    }
-
     // Hash password
     const hashedPassword = bcrypt.hashSync(password, 10);
 
